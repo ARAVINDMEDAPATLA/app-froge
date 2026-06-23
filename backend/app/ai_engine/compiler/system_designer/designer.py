@@ -5,7 +5,7 @@ from app.ai_engine.schemas.system_design import SystemDesignSchema
 
 # Initialize the System Designer Agent
 system_designer_agent = Agent(
-    'google:gemini-2.0-flash',  # We use the same model, ideally swap in production
+    'groq:llama-3.3-70b-versatile',  # Groq Llama 3 70B model
     output_type=SystemDesignSchema,
     system_prompt=(
         "You are an expert Software Architect and Product Manager. "
@@ -26,4 +26,4 @@ def design_system(intent: IntentSchema) -> SystemDesignSchema:
     # We pass the intent as a JSON string to the agent
     intent_json = intent.model_dump_json()
     result = system_designer_agent.run_sync(f"Design a system for this intent:\n{intent_json}")
-    return result.data
+    return result.output

@@ -3,9 +3,9 @@ from pydantic_ai import Agent
 from app.ai_engine.schemas.intent import IntentSchema
 
 # We define a PydanticAI Agent that is strictly typed to return an IntentSchema
-# We can use the default model or specify a specific one like 'google:gemini-2.0-flash'
+# We can use the default model or specify a specific one like 'groq:llama-3.3-70b-versatile'
 intent_extractor_agent = Agent(
-    'google:gemini-2.0-flash',
+    'groq:llama-3.3-70b-versatile',
     output_type=IntentSchema,
     system_prompt=(
         "You are an expert AI system architect. "
@@ -21,4 +21,4 @@ def extract_intent(user_prompt: str) -> IntentSchema:
     """
     # Run the agent and return the structured data
     result = intent_extractor_agent.run_sync(user_prompt)
-    return result.data
+    return result.output
